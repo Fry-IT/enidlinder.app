@@ -10,6 +10,7 @@
 
   <!-- Include configuration for dependencies listed in setup.py -->
   <includeDependencies package="." />
+  <include package="plone.behavior" file="meta.zcml"/>
 
   <!-- Grok the package to initialize schema interfaces and content classes -->
   <grok:grok package="." />
@@ -42,4 +43,18 @@
         factory=".form.AddView"
         name="enidlinder.app.form"
         />
+        
+   <adapter for="enidlinder.app.form.IForm"
+         factory=".behaviors.ExcludeFromNavigationForm"
+         provides=".interfaces.IExcludeFromNavigationForm"
+         />	
+
+         <!-- Exclude from navigation -->
+    <plone:behavior
+        title="Custom Exclude From navigation"
+        description="Allow items to be excluded from navigation"
+        provides=".interfaces.IExcludeFromNavigationForm"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        />
+         
 </configure>

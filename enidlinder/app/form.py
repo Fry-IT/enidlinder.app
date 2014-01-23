@@ -11,15 +11,17 @@ from z3c.form import interfaces
 # importing for fieldset
 from plone.directives import form
 
-#datagrid for table inside form
-
 from zope import interface
 
 from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 
 from z3c.form.browser.textlines import TextLinesFieldWidget
 
-from plone.app.dexterity.behaviors.exclfromnav import IExcludeFromNavigation
+from interfaces import IExcludeFromNavigationForm
+from plone.behavior.interfaces import IBehaviorAssignable
+
+# import for edit form
+from plone.directives import dexterity, form
 
 class IForm(model.Schema):
     """An application form for foundation. 
@@ -249,23 +251,27 @@ class IForm(model.Schema):
 			required=False,
 			)
 
-    
-	
-@form.default_value(field = IExcludeFromNavigation['exclude_from_nav'])
+            
+@form.default_value(field = IExcludeFromNavigationForm['exclude_from_nav'])
 def excludeFromNavDefaultValue(data):
     return True    
-    
+
 class AddForm(DefaultAddForm):
     
     enable_form_tabbing = False
     
-    def __init__(self, context, request, ti=None):
-        super(DefaultAddForm, self).__init__(context, request)
-        if ti is not None:
-            self.ti = ti
-            self.portal_type = ti.getId()
-        self.request['disable_border'] = False
-
+    def updateWidgets(self):
+        super(AddForm, self).updateWidgets()
+        
+             
 class AddView(DefaultAddView):
-	form = AddForm
-		
+    form = AddForm
+
+    
+class EditForm(dexterity.EditForm):
+    
+    grok.context(IForm)
+    enable_form_tabbing = False
+	
+    def updateWidgets(self):
+        dexterity.EditForm.updateWidgets(self)    
