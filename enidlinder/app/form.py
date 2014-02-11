@@ -11,17 +11,18 @@ from z3c.form import interfaces
 # importing for fieldset
 from plone.directives import form
 
-from zope import interface
+#from zope import interface
 
+# import for view class
 from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 
-from z3c.form.browser.textlines import TextLinesFieldWidget
+#from z3c.form.browser.textlines import TextLinesFieldWidget
 
 from interfaces import IExcludeFromNavigationForm
-from plone.behavior.interfaces import IBehaviorAssignable
 
 # import for edit form
 from plone.directives import dexterity, form
+
 
 class IForm(model.Schema):
     """An application form for foundation. 
@@ -256,6 +257,7 @@ class IForm(model.Schema):
 def excludeFromNavDefaultValue(data):
     return True    
 
+    
 class AddForm(DefaultAddForm):
     
     enable_form_tabbing = False
