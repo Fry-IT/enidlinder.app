@@ -30,7 +30,6 @@ class IForm(model.Schema):
     """
     
     
-    
     title = schema.TextLine(
         title=_(u"Name of Charity"),
         )
@@ -115,6 +114,12 @@ def excludeFromNavDefaultValue(data):
     return True    
 
     
+class View(grok.View):
+    grok.context(IForm)
+    grok.require('zope2.View')
+    grok.name('view')
+
+
 class AddForm(DefaultAddForm):
     
     enable_form_tabbing = True
