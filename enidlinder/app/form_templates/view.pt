@@ -9,73 +9,71 @@
 
 <metal:main fill-slot="content-core">
 
-
-
   <h5>Registered charity number:</h5>
-		<p tal:content="context/charity_number" />
+    <p tal:content="context/charity_number" />
 
   <h5>Aim of charity:</h5>
-		<p tal:condition="context/aim_of_charity"
-		   tal:content="structure python:context.aim_of_charity.replace('\n','<br>')" />
+    <p tal:condition="context/aim_of_charity"
+       tal:content="structure python:context.aim_of_charity.replace('\n','<br>')" />
 
   <h5>Name of correspondent:</h5>
-		<p tal:content="context/name_of_correspondent" />
+    <p tal:content="context/name_of_correspondent" />
 
   <h5>Position:</h5>
-		<p tal:content="context/position" /><br/>
+    <p tal:content="context/position" /><br/>
 
   <h5>Address:</h5>
-		<p tal:condition="context/address"
-		   tal:content="structure python:context.address.replace('\n','<br>')" />
+    <p tal:condition="context/address"
+       tal:content="structure python:context.address.replace('\n','<br>')" />
   <h5>Telephone:</h5>
-		<p tal:content="context/telephone" />
+    <p tal:content="context/telephone" />
 
   <h5>Email:</h5>
-		<p tal:content="context/email" />
+    <p tal:content="context/email" />
 
   <h5>Project:</h5>
-		<p tal:condition="context/project"
-		   tal:content="structure python:context.project.replace('\n','<br>')" />
+    <p tal:condition="context/project"
+       tal:content="structure python:context.project.replace('\n','<br>')" />
 
   <h5>Aim of project:</h5>
-		<p tal:condition="context/aim_of_project"
-		   tal:content="structure python:context.aim_of_project.replace('\n','<br>')" />
+    <p tal:condition="context/aim_of_project"
+       tal:content="structure python:context.aim_of_project.replace('\n','<br>')" />
 
   <h5>Length of project:</h5>
-		<p tal:content="context/length_of_project" />
+    <p tal:content="context/length_of_project" />
 
   <h5>Who will benefit from the project?</h5>
-		<p tal:condition="context/project_benefit"
-	       tal:content="structure python:context.project_benefit.replace('\n','<br>')" />
+    <p tal:condition="context/project_benefit"
+         tal:content="structure python:context.project_benefit.replace('\n','<br>')" />
 
   <h5>How much are you applying for?</h5>
-		<p  tal:condition="context/money_applying"
-			tal:content="structure python:context.money_applying.replace('\n','<br>')" />
+    <p  tal:condition="context/money_applying"
+      tal:content="structure python:context.money_applying.replace('\n','<br>')" />
 
   <h5>How much have you raised towards the project?</h5>
-		<p  tal:condition="context/money_raised"
-			tal:content="structure python:context.money_raised.replace('\n', '<br>')" />
+    <p  tal:condition="context/money_raised"
+      tal:content="structure python:context.money_raised.replace('\n', '<br>')" />
 
   <span>
-	<h5>Supporting document:</h5>
+  <h5>Supporting document:</h5>
   </span>
 
   <span>
-	  <tal:block define="global attachment nocall:context/supporting_docs;
-							   global size attachment/getSize | nothing; " />
+    <tal:block define="global attachment nocall:context/supporting_docs;
+                 global size attachment/getSize | nothing; " />
 
-	  <tal:block tal:condition="python:size > 0" >
-		<tal:mime tal:define="global mimeType python:context.lookupMime(attachment.contentType) or nothing;"/>
-	  </tal:block>
+    <tal:block tal:condition="python:size > 0" >
+    <tal:mime tal:define="global mimeType python:context.lookupMime(attachment.contentType) or nothing;"/>
+    </tal:block>
 
 
-	  <div tal:condition="python:size > 0">
-		  <a tal:attributes="href string:${context/absolute_url}/@@download/supporting_docs/${attachment/filename}">
-					  <span tal:content="string:${attachment/filename}"/> (<tal:size content="python:'%sKb' % (size / 1024)">0Kb</tal:size>)
-		  </a>
-		  </div>
+    <div tal:condition="python:size > 0">
+      <a tal:attributes="href string:${context/absolute_url}/@@download/supporting_docs/${attachment/filename}">
+            <span tal:content="string:${attachment/filename}"/> (<tal:size content="python:'%sKb' % (size / 1024)">0Kb</tal:size>)
+      </a>
+      </div>
 
-	</span>
+  </span>
 
     <br/><br/>
 

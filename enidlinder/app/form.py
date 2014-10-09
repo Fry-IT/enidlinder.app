@@ -1,35 +1,21 @@
 from enidlinder.app import MessageFactory as _
 from five import grok
-from plone.app.textfield import RichText
 from plone.supermodel import model
 from zope import schema
 
 # importing class to customising add view
 from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
-from z3c.form import interfaces
-
-# importing for fieldset
-from plone.directives import form
-
-#from zope import interface
-
-# import for view class
-from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
-
-#from z3c.form.browser.textlines import TextLinesFieldWidget
-
 from interfaces import IExcludeFromNavigationForm
 
 # import for edit form
 from plone.directives import dexterity, form
 
-from plone.namedfile.field import NamedBlobImage, NamedBlobFile
+from plone.namedfile.field import NamedBlobFile
+
 
 class IForm(model.Schema):
     """An application form for foundation.
     """
-
-
 
     title = schema.TextLine(
         title=_(u"Name of Charity"),
@@ -100,20 +86,21 @@ class IForm(model.Schema):
     money_raised = schema.TextLine(
         title=_(u"How much have you raised towards the project?"),
         required=False,
-	)
+    )
 
     previous_grant = schema.TextLine(
         title=_(u"Have you received a grant from the Foundation before? Please specify any dates"),
         required=False,
-	)
+    )
 
     supporting_docs = NamedBlobFile(
-		title = _(u"Supporting document"),
-        description = _(u"No more than 2 sides of A4 paper"),
-        required = False,
-	)
+        title=_(u"Supporting document"),
+        description=_(u"No more than 2 sides of A4 paper"),
+        required=False,
+    )
 
-@form.default_value(field = IExcludeFromNavigationForm['exclude_from_nav'])
+
+@form.default_value(field=IExcludeFromNavigationForm['exclude_from_nav'])
 def excludeFromNavDefaultValue(data):
     return True
 
@@ -126,13 +113,13 @@ class AddForm(DefaultAddForm):
         super(AddForm, self).updateWidgets()
 
         field_list = {
-				'aim_of_charity':4,
-				'aim_of_project':10,
-		        'project_benefit':4,
+                'aim_of_charity': 4,
+                'aim_of_project': 10,
+                'project_benefit': 4,
                 }
 
-        for key,value in field_list.iteritems():
-		  	self.widgets[key].rows = value
+        for key, value in field_list.iteritems():
+            self.widgets[key].rows = value
 
 
 class AddView(DefaultAddView):
@@ -148,11 +135,10 @@ class EditForm(dexterity.EditForm):
         dexterity.EditForm.updateWidgets(self)
 
         field_list = {
-				'aim_of_charity':4,
-				'aim_of_project':10,
-		        'project_benefit':4,
+                'aim_of_charity': 4,
+                'aim_of_project': 10,
+                'project_benefit': 4,
                 }
 
-        for key,value in field_list.iteritems():
-		  	self.widgets[key].rows = value
-
+        for key, value in field_list.iteritems():
+            self.widgets[key].rows = value
